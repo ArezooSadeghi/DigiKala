@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -21,6 +22,7 @@ public class LatestProductsFragment extends Fragment {
 
     private RecyclerView mLatestProduct;
     private ProductRepository mRepository;
+    private TextView mLatestProductTitle;
 
     public LatestProductsFragment() {
     }
@@ -63,9 +65,11 @@ public class LatestProductsFragment extends Fragment {
 
     private void findViews(View view) {
         mLatestProduct = view.findViewById(R.id.latest_product_recycler_view);
+        mLatestProductTitle = view.findViewById(R.id.txt_latest_product_title);
     }
 
     private void initViews() {
+        mLatestProductTitle.setText(R.string.latest_product_title);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mLatestProduct.setLayoutManager(layoutManager);

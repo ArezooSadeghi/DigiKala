@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,17 +56,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         private Product mProduct;
         private TextView mProductName, mProductPrice;
+        private ImageView mProductImage;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             mProductName = itemView.findViewById(R.id.txt_product_name);
             mProductPrice = itemView.findViewById(R.id.txt_product_price);
+            mProductImage = itemView.findViewById(R.id.img_product);
         }
 
         public void bindProduct(Product product) {
             mProduct = product;
             mProductName.setText(product.getProductName());
-            mProductPrice.setText(product.getProductPrice());
+            String text = R.string.currency + product.getProductPrice();
+            mProductPrice.setText(product.getProductPrice() + "  " + mContext.getResources()
+                    .getString(R.string.currency));
         }
     }
 }

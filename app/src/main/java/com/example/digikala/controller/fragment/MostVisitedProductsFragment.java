@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -21,6 +22,7 @@ public class MostVisitedProductsFragment extends Fragment {
 
     private RecyclerView mMostVisitedProduct;
     private ProductRepository mRepository;
+    private TextView mMostVisitedProductTitle;
 
     public MostVisitedProductsFragment() {
     }
@@ -63,9 +65,11 @@ public class MostVisitedProductsFragment extends Fragment {
 
     private void findViews(View view) {
         mMostVisitedProduct = view.findViewById(R.id.most_visited_product_recycler_view);
+        mMostVisitedProductTitle = view.findViewById(R.id.txt_most_visited_product_title);
     }
 
     private void initViews() {
+        mMostVisitedProductTitle.setText(R.string.most_visited_product_title);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mMostVisitedProduct.setLayoutManager(layoutManager);

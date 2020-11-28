@@ -20,14 +20,31 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragment_container);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
 
-        if (fragment == null)
+        Fragment bestProductFragment = fragmentManager
+                .findFragmentById(R.id.best_product_fragment_container);
+        if (bestProductFragment == null)
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.fragment_container, createFragment().get(0))
-                    .add(R.id.fragment_container, createFragment().get(1))
-                    .add(R.id.fragment_container, createFragment().get(2))
+                    .add(R.id.best_product_fragment_container, createFragment().get(0))
+                    .commit();
+
+
+        Fragment latestProductFragment = fragmentManager
+                .findFragmentById(R.id.latest_product_fragment_container);
+        if (latestProductFragment == null)
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.latest_product_fragment_container, createFragment().get(1))
+                    .commit();
+
+
+        Fragment mostVisitedProductFragment = fragmentManager
+                .findFragmentById(R.id.most_visited_product_fragment_container);
+        if (mostVisitedProductFragment == null)
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.most_visited_product_fragment_container, createFragment().get(2))
                     .commit();
     }
 }

@@ -1,10 +1,10 @@
 package com.example.digikala.controller.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -22,6 +22,7 @@ public class BestProductsFragment extends Fragment {
 
     private RecyclerView mBestProduct;
     private ProductRepository mRepository;
+    private TextView mBestProductTitle;
 
     public BestProductsFragment() {
     }
@@ -64,9 +65,11 @@ public class BestProductsFragment extends Fragment {
 
     private void findViews(View view) {
         mBestProduct = view.findViewById(R.id.best_product_recycler_view);
+        mBestProductTitle = view.findViewById(R.id.txt_best_product_title);
     }
 
     private void initViews() {
+        mBestProductTitle.setText(R.string.best_product_title);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mBestProduct.setLayoutManager(layoutManager);
