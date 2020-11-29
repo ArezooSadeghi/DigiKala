@@ -14,6 +14,7 @@ import com.example.digikala.R;
 import com.example.digikala.model.Product;
 
 import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
@@ -71,6 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             String text = R.string.currency + product.getProductPrice();
             mProductPrice.setText(product.getProductPrice() + "  " + mContext.getResources()
                     .getString(R.string.currency));
+            Picasso.get().load(product.getProductImageUrl()).into(mProductImage);
         }
     }
 }

@@ -5,6 +5,7 @@ public class Product {
     private String mProductName;
     private String mProductPrice;
     private String mProductId;
+    private String mProductImageUrl;
 
     public Product() {
     }
@@ -13,6 +14,14 @@ public class Product {
         mProductName = productName;
         mProductPrice = productPrice;
         mProductId = productId;
+    }
+
+    public String getProductImageUrl() {
+        return mProductImageUrl;
+    }
+
+    public void setProductImageUrl(String productImageUrl) {
+        mProductImageUrl = productImageUrl;
     }
 
     public String getProductName() {
