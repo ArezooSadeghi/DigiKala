@@ -12,10 +12,10 @@ import com.example.digikala.controller.fragment.MostVisitedProductsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends SingleFragmentActivity {
+public class ProductListContainer extends SingleFragmentActivity {
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+        return new Intent(context, ProductListContainer.class);
     }
 
     @Override

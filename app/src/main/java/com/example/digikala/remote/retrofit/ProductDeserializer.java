@@ -27,9 +27,16 @@ public class ProductDeserializer implements JsonDeserializer<List<Product>> {
             String productId = productObject.get("id").getAsString();
             String productName = productObject.get("name").getAsString();
             String productPrice = productObject.get("price").getAsString();
+            String productRate = productObject.get("average_rating").getAsString();
+            String productDescription = productObject.get("description").getAsString();
             JsonArray productImages = productObject.get("images").getAsJsonArray();
 
-            Product product = new Product(productName, productPrice, productId);
+            Product product = new Product(
+                    productName,
+                    productPrice,
+                    productId,
+                    productRate,
+                    productDescription);
 
             for (int j = 0; j < productImages.size(); j++) {
                 JsonObject productImage = productImages.get(j).getAsJsonObject();

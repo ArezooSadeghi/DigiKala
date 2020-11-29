@@ -1,6 +1,7 @@
 package com.example.digikala.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digikala.R;
+import com.example.digikala.controller.activity.ProductDetailContainer;
 import com.example.digikala.model.Product;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import com.squareup.picasso.Picasso;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
@@ -64,6 +66,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             mProductName = itemView.findViewById(R.id.txt_product_name);
             mProductPrice = itemView.findViewById(R.id.txt_product_price);
             mProductImage = itemView.findViewById(R.id.img_product);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = ProductDetailContainer
+                            .newIntent(mContext, mProduct.getProductId());
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         public void bindProduct(Product product) {

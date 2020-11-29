@@ -17,7 +17,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment_container);
+        setContentView(R.layout.activity_product_list_container);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 

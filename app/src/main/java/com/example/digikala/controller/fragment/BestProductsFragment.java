@@ -16,6 +16,7 @@ import com.example.digikala.adapter.ProductAdapter;
 import com.example.digikala.model.Product;
 import com.example.digikala.repository.ProductRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BestProductsFragment extends Fragment {
@@ -43,7 +44,12 @@ public class BestProductsFragment extends Fragment {
         mRepository.getProductListLiveData().observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
-                setupAdapter(products);
+                List<Product> bestProductList = new ArrayList<>();
+                for (Product product : products) {
+                    if (Double.parseDouble(product.getProductRate()) > 00.0)
+                        bestProductList.add(product);
+                }
+                setupAdapter(bestProductList);
             }
         });
     }

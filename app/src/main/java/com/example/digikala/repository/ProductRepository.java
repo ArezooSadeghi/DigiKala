@@ -16,10 +16,13 @@ import retrofit2.Response;
 
 public class ProductRepository {
 
-    private MutableLiveData<List<Product>> mProductListLiveData = new MutableLiveData<>();
     public static final String TAG = "ProductRepository";
+
+    private MutableLiveData<List<Product>> mProductListLiveData = new MutableLiveData<>();
     private static ProductRepository sInstance;
     private DigiKalaService mDigiKalaService;
+    private List<Product> mProductList;
+
 
     private ProductRepository() {
         mDigiKalaService = RetrofitInstance.getInstance().create(DigiKalaService.class);
@@ -42,7 +45,8 @@ public class ProductRepository {
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                mProductListLiveData.setValue(response.body());
+                mProductList = response.body();
+                mProductListLiveData.setValue(mProductList);
             }
 
             @Override
@@ -50,5 +54,13 @@ public class ProductRepository {
                 Log.e(TAG, t.getMessage(), t);
             }
         });
+    }
+
+    public Product getProduct(String productId) {
+        for (Product product : mProductList) {
+            if (product.getProductId().equals(productId))
+                return product;
+        }
+        return null;
     }
 }

@@ -6,14 +6,40 @@ public class Product {
     private String mProductPrice;
     private String mProductId;
     private String mProductImageUrl;
+    private String mProductRate;
+    private String mProductDescription;
 
     public Product() {
     }
 
-    public Product(String productName, String productPrice, String productId) {
+    public Product(
+            String productName,
+            String productPrice,
+            String productId,
+            String productRate,
+            String productDescription) {
+
         mProductName = productName;
         mProductPrice = productPrice;
         mProductId = productId;
+        mProductRate = productRate;
+        mProductDescription = productDescription;
+    }
+
+    public String getProductDescription() {
+        return mProductDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        mProductDescription = productDescription;
+    }
+
+    public String getProductRate() {
+        return mProductRate;
+    }
+
+    public void setProductRate(String productRate) {
+        mProductRate = productRate;
     }
 
     public String getProductImageUrl() {
