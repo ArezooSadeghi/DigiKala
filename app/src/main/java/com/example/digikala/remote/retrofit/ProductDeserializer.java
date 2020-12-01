@@ -1,5 +1,7 @@
 package com.example.digikala.remote.retrofit;
 
+import android.text.Html;
+
 import com.example.digikala.model.Product;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -21,6 +23,7 @@ public class ProductDeserializer implements JsonDeserializer<List<Product>> {
 
         List<Product> productList = new ArrayList<>();
         JsonArray bodyArray = json.getAsJsonArray();
+
         for (int i = 0; i < bodyArray.size(); i++) {
             JsonObject productObject = bodyArray.get(i).getAsJsonObject();
 
@@ -28,7 +31,8 @@ public class ProductDeserializer implements JsonDeserializer<List<Product>> {
             String productName = productObject.get("name").getAsString();
             String productPrice = productObject.get("price").getAsString();
             String productRate = productObject.get("average_rating").getAsString();
-            String productDescription = productObject.get("description").getAsString();
+            String productDescription = Html.fromHtml(productObject.get("description").getAsString()).toString();
+
             JsonArray productImages = productObject.get("images").getAsJsonArray();
 
             Product product = new Product(
@@ -38,12 +42,14 @@ public class ProductDeserializer implements JsonDeserializer<List<Product>> {
                     productRate,
                     productDescription);
 
+            List<String> productImageUrl = new ArrayList<>();
+
             for (int j = 0; j < productImages.size(); j++) {
                 JsonObject productImage = productImages.get(j).getAsJsonObject();
-
-                String productImageUrl = productImage.get("src").getAsString();
-                product.setProductImageUrl(productImageUrl);
+                productImageUrl.add(productImage.get("src").getAsString());
             }
+
+            product.setProductImageUrl(productImageUrl);
             productList.add(product);
         }
         return productList;

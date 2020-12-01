@@ -82,7 +82,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             String text = R.string.currency + product.getProductPrice();
             mProductPrice.setText(product.getProductPrice() + "  " + mContext.getResources()
                     .getString(R.string.currency));
-            Picasso.get().load(product.getProductImageUrl()).into(mProductImage);
+            Picasso.get().load(product.getProductImageUrl().get(0)).into(mProductImage);
         }
     }
 }

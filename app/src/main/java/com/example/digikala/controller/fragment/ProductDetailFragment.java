@@ -1,25 +1,25 @@
 package com.example.digikala.controller.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.digikala.R;
+import com.example.digikala.adapter.ProductSliderAdapter;
 import com.example.digikala.model.Product;
 import com.example.digikala.repository.ProductRepository;
-import com.squareup.picasso.Picasso;
+import com.smarteist.autoimageslider.SliderView;
 
 public class ProductDetailFragment extends Fragment {
 
     private static final String ARGS_PRODUCT_ID = "productId";
-    private TextView mProductDescription, mProductDimensions;
-    private ImageView mProductImage;
+
+    private TextView mProductDescription;
+    private SliderView mProductImageGallery;
     private ProductRepository mRepository;
     private Product mProduct;
 
@@ -59,12 +59,14 @@ public class ProductDetailFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        mProductImage = view.findViewById(R.id.img_product);
-        mProductDimensions = view.findViewById(R.id.txt_product_dimensions);
+        mProductImageGallery = view.findViewById(R.id.img_product_slider);
         mProductDescription = view.findViewById(R.id.txt_product_description);
     }
 
     private void initViews(Product product) {
-        Picasso.get().load(product.getProductImageUrl()).into(mProductImage);
+        mProductDescription.setText(product.getProductDescription());
+        ProductSliderAdapter adapter = new ProductSliderAdapter(getContext(), product.getProductImageUrl());
+        mProductImageGallery.setSliderAdapter(adapter);
     }
+
 }

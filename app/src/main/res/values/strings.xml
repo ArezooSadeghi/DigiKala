@@ -6,7 +6,5 @@
     <string name="best_product_title">محبوب ترین کالاها</string>
     <string name="latest_product_title">جدیدترین محصولات</string>
     <string name="most_visited_product_title">محصولات پربازدید اخیر</string>
-    <string name="specifications">مشخصات</string>
-    <string name="description">سایر توضیحات</string>
-    <string name="Dimensions">ابعاد</string>
+    <string name="specifications">مشخصات کلی</string>
 </resources>

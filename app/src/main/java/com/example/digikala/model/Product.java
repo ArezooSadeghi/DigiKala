@@ -1,11 +1,13 @@
 package com.example.digikala.model;
 
+import java.util.List;
+
 public class Product {
 
     private String mProductName;
     private String mProductPrice;
     private String mProductId;
-    private String mProductImageUrl;
+    private List<String> mProductImageUrl;
     private String mProductRate;
     private String mProductDescription;
 
@@ -42,11 +44,11 @@ public class Product {
         mProductRate = productRate;
     }
 
-    public String getProductImageUrl() {
+    public List<String> getProductImageUrl() {
         return mProductImageUrl;
     }
 
-    public void setProductImageUrl(String productImageUrl) {
+    public void setProductImageUrl(List<String> productImageUrl) {
         mProductImageUrl = productImageUrl;
     }
 
