@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".controller.activity.ProductDetailContainer"></activity>
-        <activity android:name=".controller.activity.ProductListContainer">
+        <activity android:name=".controller.activity.ProductViewPagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
