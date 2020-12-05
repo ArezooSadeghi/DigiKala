@@ -9,14 +9,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.digikala.R;
 
-public class ProductCategoryFragment extends Fragment {
+public class CartFragment extends Fragment {
 
-    public ProductCategoryFragment() {
+    public CartFragment() {
     }
 
-
-    public static ProductCategoryFragment newInstance() {
-        ProductCategoryFragment fragment = new ProductCategoryFragment();
+    public static CartFragment newInstance() {
+        CartFragment fragment = new CartFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -31,10 +30,7 @@ public class ProductCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(
-                R.layout.fragment_product_category,
-                container,
-                false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
         return view;
     }
 }

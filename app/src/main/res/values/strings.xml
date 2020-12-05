@@ -7,4 +7,15 @@
     <string name="latest_product_title">جدیدترین محصولات</string>
     <string name="most_visited_product_title">محصولات پربازدید اخیر</string>
     <string name="specifications">مشخصات کلی</string>
+    <string name="home_item_title">خانه</string>
+    <string name="category_item_title">دسته بندی ها</string>
+    <string name="cart_item_title">سبد خرید</string>
+    <string name="person_item_title">دیجی کالای من</string>
+    <string name="see_all_product">مشاهده همه</string>
+    <string name="bag_towel_category">کیف و حوله</string>
+    <string name="health_category">بهداشت</string>
+    <string name="digital_category">دیجیتال</string>
+    <string name="fashion_clothing_category">مد و پوشاک</string>
+    <string name="phone_category">گوشی موبایل</string>
+    <string name="household_category">لوازم منزل</string>
 </resources>

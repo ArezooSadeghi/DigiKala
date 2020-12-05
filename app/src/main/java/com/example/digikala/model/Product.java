@@ -1,6 +1,7 @@
 package com.example.digikala.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class Product {
 
@@ -10,6 +11,7 @@ public class Product {
     private List<String> mProductImageUrl;
     private String mProductRate;
     private String mProductDescription;
+    private Map<String, String> mProductCategoryName;
 
     public Product() {
     }
@@ -34,6 +36,14 @@ public class Product {
 
     public void setProductDescription(String productDescription) {
         mProductDescription = productDescription;
+    }
+
+    public Map<String, String> getProductCategoryName() {
+        return mProductCategoryName;
+    }
+
+    public void setProductCategoryName(Map<String, String> productCategoryName) {
+        mProductCategoryName = productCategoryName;
     }
 
     public String getProductRate() {

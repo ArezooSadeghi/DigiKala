@@ -19,7 +19,10 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private RecyclerView mBestProduct, mLatestProduct, mMostVisitedProduct;
+    private RecyclerView mRecyclerViewMostVisitedProduct,
+            mRecyclerViewLatestProduct,
+            mRecyclerViewBestProduct;
+
     private ProductRepository mRepository;
 
     public HomeFragment() {
@@ -40,8 +43,8 @@ public class HomeFragment extends Fragment {
         mRepository.fetchProductItemsAsync();
         mRepository.getProductListLiveData().observe(this, new Observer<List<Product>>() {
             @Override
-            public void onChanged(List<Product> products) {
-                setupAdapter(products);
+            public void onChanged(List<Product> productList) {
+                setupAdapter(productList);
             }
         });
     }
@@ -59,33 +62,30 @@ public class HomeFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        mBestProduct = view.findViewById(R.id.best_product_recycler_view);
-        mLatestProduct = view.findViewById(R.id.latest_product_recycler_view);
-        mMostVisitedProduct = view.findViewById(R.id.most_visited_product_recycler_view);
+        mRecyclerViewBestProduct = view.findViewById(R.id.best_product_recycler_view);
+        mRecyclerViewLatestProduct = view.findViewById(R.id.latest_product_recycler_view);
+        mRecyclerViewMostVisitedProduct = view.findViewById(R.id.most_visited_product_recycler_view);
     }
 
     private void initViews() {
-        LinearLayoutManager bestLayoutManager = new LinearLayoutManager(getContext());
-        bestLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mBestProduct.setLayoutManager(bestLayoutManager);
+        LinearLayoutManager bestProductLayoutManager = new LinearLayoutManager(getContext());
+        bestProductLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mRecyclerViewBestProduct.setLayoutManager(bestProductLayoutManager);
 
-        LinearLayoutManager latestLayoutManager = new LinearLayoutManager(getContext());
-        latestLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mLatestProduct.setLayoutManager(latestLayoutManager);
+        LinearLayoutManager latestProductLayoutManager = new LinearLayoutManager(getContext());
+        latestProductLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mRecyclerViewLatestProduct.setLayoutManager(latestProductLayoutManager);
 
-        LinearLayoutManager mostVisitedLayoutManager = new LinearLayoutManager(getContext());
-        mostVisitedLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mMostVisitedProduct.setLayoutManager(mostVisitedLayoutManager);
+        LinearLayoutManager mostVisitedProductLayoutManager = new LinearLayoutManager(getContext());
+        mostVisitedProductLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mRecyclerViewMostVisitedProduct.setLayoutManager(mostVisitedProductLayoutManager);
     }
 
     private void setupAdapter(List<Product> productList) {
-        ProductAdapter bestProductAdapter = new ProductAdapter(productList, getContext());
-        mBestProduct.setAdapter(bestProductAdapter);
+        ProductAdapter adapter = new ProductAdapter(productList, getContext());
 
-        ProductAdapter latestProductAdapter = new ProductAdapter(productList, getContext());
-        mLatestProduct.setAdapter(latestProductAdapter);
-
-        ProductAdapter mostVisitedProductAdapter = new ProductAdapter(productList, getContext());
-        mMostVisitedProduct.setAdapter(mostVisitedProductAdapter);
+        mRecyclerViewMostVisitedProduct.setAdapter(adapter);
+        mRecyclerViewLatestProduct.setAdapter(adapter);
+        mRecyclerViewBestProduct.setAdapter(adapter);
     }
 }

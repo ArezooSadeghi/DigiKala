@@ -8,7 +8,10 @@ import com.example.digikala.model.Product;
 import com.example.digikala.remote.retrofit.DigiKalaService;
 import com.example.digikala.remote.retrofit.RetrofitInstance;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +22,7 @@ public class ProductRepository {
     public static final String TAG = "ProductRepository";
 
     private MutableLiveData<List<Product>> mProductListLiveData = new MutableLiveData<>();
+    private Map<String, String> mProductCategoryName = new HashMap<>();
     private static ProductRepository sInstance;
     private DigiKalaService mDigiKalaService;
     private List<Product> mProductList;
@@ -37,6 +41,18 @@ public class ProductRepository {
 
     public MutableLiveData<List<Product>> getProductListLiveData() {
         return mProductListLiveData;
+    }
+
+    public List<Product> getProductList() {
+        return mProductList;
+    }
+
+    public Map<String, String> getProductCategoryName() {
+        Map<String, String> productCategoryName = new HashMap<>();
+        for (Product product:mProductList) {
+            productCategoryName.putAll(product.getProductCategoryName());
+        }
+        return productCategoryName;
     }
 
     public void fetchProductItemsAsync() {
@@ -62,5 +78,16 @@ public class ProductRepository {
                 return product;
         }
         return null;
+    }
+
+    public List<Product> getProductListByCategory(String categoryValue) {
+        List<Product> productList = new ArrayList<>();
+        for (Product product:mProductList) {
+            for (String value:product.getProductCategoryName().values()) {
+                if (value.equals(categoryValue))
+                    productList.add(product);
+            }
+        }
+        return productList;
     }
 }

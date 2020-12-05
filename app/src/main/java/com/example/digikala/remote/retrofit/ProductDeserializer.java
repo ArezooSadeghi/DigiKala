@@ -1,8 +1,10 @@
 package com.example.digikala.remote.retrofit;
 
 import android.text.Html;
+import android.util.Log;
 
 import com.example.digikala.model.Product;
+import com.example.digikala.repository.ProductRepository;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -12,9 +14,12 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductDeserializer implements JsonDeserializer<List<Product>> {
+
     @Override
     public List<Product> deserialize(
             JsonElement json,
@@ -33,8 +38,6 @@ public class ProductDeserializer implements JsonDeserializer<List<Product>> {
             String productRate = productObject.get("average_rating").getAsString();
             String productDescription = Html.fromHtml(productObject.get("description").getAsString()).toString();
 
-            JsonArray productImages = productObject.get("images").getAsJsonArray();
-
             Product product = new Product(
                     productName,
                     productPrice,
@@ -42,6 +45,18 @@ public class ProductDeserializer implements JsonDeserializer<List<Product>> {
                     productRate,
                     productDescription);
 
+
+            JsonArray productCategories = productObject.get("categories").getAsJsonArray();
+            Map<String, String> productCategoryName = new HashMap<>();
+
+            for (int j = 0; j < productCategories.size(); j++) {
+                JsonObject productCategory = productCategories.get(j).getAsJsonObject();
+                productCategoryName.put(productCategory.get("id").getAsString(), productCategory.get("name").getAsString());
+            }
+
+            product.setProductCategoryName(productCategoryName);
+
+            JsonArray productImages = productObject.get("images").getAsJsonArray();
             List<String> productImageUrl = new ArrayList<>();
 
             for (int j = 0; j < productImages.size(); j++) {
