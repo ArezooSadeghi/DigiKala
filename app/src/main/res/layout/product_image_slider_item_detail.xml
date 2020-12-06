@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+      <variable
+          name="url"
+          type="String" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -34,7 +36,8 @@
             <ImageView
                 android:id="@+id/img_product"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                productImage="@{url}"/>
         </com.smarteist.autoimageslider.SliderView>
 
     </androidx.cardview.widget.CardView>

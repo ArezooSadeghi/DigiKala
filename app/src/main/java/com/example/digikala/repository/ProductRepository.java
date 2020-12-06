@@ -21,7 +21,7 @@ public class ProductRepository {
 
     public static final String TAG = "ProductRepository";
 
-    private MutableLiveData<List<Product>> mProductListLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mProductsLiveData = new MutableLiveData<>();
     private Map<String, String> mProductCategoryName = new HashMap<>();
     private static ProductRepository sInstance;
     private DigiKalaService mDigiKalaService;
@@ -39,8 +39,8 @@ public class ProductRepository {
         return sInstance;
     }
 
-    public MutableLiveData<List<Product>> getProductListLiveData() {
-        return mProductListLiveData;
+    public MutableLiveData<List<Product>> getProductsLiveData() {
+        return mProductsLiveData;
     }
 
     public List<Product> getProductList() {
@@ -62,7 +62,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 mProductList = response.body();
-                mProductListLiveData.setValue(mProductList);
+                mProductsLiveData.setValue(mProductList);
             }
 
             @Override
@@ -80,7 +80,7 @@ public class ProductRepository {
         return null;
     }
 
-    public List<Product> getProductListByCategory(String categoryValue) {
+    public List<Product> getProductsByCategory(String categoryValue) {
         List<Product> productList = new ArrayList<>();
         for (Product product:mProductList) {
             for (String value:product.getProductCategoryName().values()) {

@@ -1,4 +1,4 @@
-package com.example.digikala.controller.activity;
+package com.example.digikala.uicontroller.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,23 +10,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.digikala.R;
-import com.example.digikala.controller.fragment.CartFragment;
-import com.example.digikala.controller.fragment.CategoryFragment;
-import com.example.digikala.controller.fragment.HomeFragment;
-import com.example.digikala.controller.fragment.PersonFragment;
-import com.example.digikala.databinding.ActivityBottomNavigationBarBinding;
+import com.example.digikala.databinding.ActivityNavigationBarBinding;
+import com.example.digikala.uicontroller.fragment.CartFragment;
+import com.example.digikala.uicontroller.fragment.CategoryFragment;
+import com.example.digikala.uicontroller.fragment.HomeFragment;
+import com.example.digikala.uicontroller.fragment.PersonFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BottomNavigationBarActivity extends AppCompatActivity {
+public class NavigationBarActivity extends AppCompatActivity {
 
-    private ActivityBottomNavigationBarBinding mBinding;
+    private ActivityNavigationBarBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(
                 this,
-                R.layout.activity_bottom_navigation_bar);
+                R.layout.activity_navigation_bar);
 
         mBinding.bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -80,6 +80,6 @@ public class BottomNavigationBarActivity extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, BottomNavigationBarActivity.class);
+        return new Intent(context, NavigationBarActivity.class);
     }
 }

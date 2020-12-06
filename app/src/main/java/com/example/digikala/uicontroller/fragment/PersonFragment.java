@@ -1,4 +1,4 @@
-package com.example.digikala.controller.fragment;
+package com.example.digikala.uicontroller.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,17 +9,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.digikala.R;
-import com.example.digikala.databinding.FragmentCartBinding;
+import com.example.digikala.databinding.FragmentPersonBinding;
 
-public class CartFragment extends Fragment {
+public class PersonFragment extends Fragment {
 
-    private FragmentCartBinding mBinding;
+    private FragmentPersonBinding mBinding;
 
-    public CartFragment() {
+    public PersonFragment() {
     }
 
-    public static CartFragment newInstance() {
-        CartFragment fragment = new CartFragment();
+    public static PersonFragment newInstance() {
+        PersonFragment fragment = new PersonFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -36,7 +36,7 @@ public class CartFragment extends Fragment {
 
         mBinding = DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_cart,
+                R.layout.fragment_person,
                 container,
                 false);
         return mBinding.getRoot();

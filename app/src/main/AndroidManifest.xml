@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.activity.CategoryPageActivity"></activity>
-        <activity android:name=".controller.activity.ProductDetailContainer" />
-        <activity android:name=".controller.activity.BottomNavigationBarActivity">
+        <activity android:name=".uicontroller.activity.ProductCategoryActivity"></activity>
+        <activity android:name=".uicontroller.activity.ProductDetailActivity" />
+        <activity android:name=".uicontroller.activity.NavigationBarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

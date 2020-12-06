@@ -25,7 +25,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     private List<Product> mProductCategoryList;
 
     public ProductCategoryAdapter(Context context, List<Product> productCategoryList) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mProductCategoryList = productCategoryList;
     }
 
@@ -65,12 +65,11 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
         public ProductCategoryViewHolder(
                 ProductCategoryItemDetailBinding productCategoryItemDetailBinding) {
             super(productCategoryItemDetailBinding.getRoot());
+            mProductCategoryItemDetailBinding = productCategoryItemDetailBinding;
         }
 
         private void bindCategoryName(Product product) {
-            Picasso.get()
-                    .load(product.getProductImageUrl().get(0))
-                    .into(mProductCategoryItemDetailBinding.imgProduct);
+           mProductCategoryItemDetailBinding.setProduct(product);
         }
     }
 }

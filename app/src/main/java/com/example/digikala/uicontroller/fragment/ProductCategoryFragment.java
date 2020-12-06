@@ -1,35 +1,33 @@
-package com.example.digikala.controller.fragment;
+package com.example.digikala.uicontroller.fragment;
 
 import android.os.Bundle;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.digikala.R;
 import com.example.digikala.adapter.CategoryPageAdapter;
-import com.example.digikala.databinding.FragmentCategoryPageBinding;
-import com.example.digikala.repository.ProductRepository;
+import com.example.digikala.databinding.FragmentProductCategoryBinding;
+import com.example.digikala.viewmodel.ProductViewModel;
 
-public class CategoryPageFragment extends Fragment {
+public class ProductCategoryFragment extends Fragment {
 
     public static final String ARGS_CATEGORY_VALUE = "categoryValue";
 
     private String mCategoryValue;
-    private ProductRepository mRepository;
-    private FragmentCategoryPageBinding mBinding;
+    private FragmentProductCategoryBinding mBinding;
+    private ProductViewModel mViewModel;
 
-    public CategoryPageFragment() {
+    public ProductCategoryFragment() {
     }
 
-    public static CategoryPageFragment newInstance(String categoryValue) {
-        CategoryPageFragment fragment = new CategoryPageFragment();
+    public static ProductCategoryFragment newInstance(String categoryValue) {
+        ProductCategoryFragment fragment = new ProductCategoryFragment();
         Bundle args = new Bundle();
         args.putString(ARGS_CATEGORY_VALUE, categoryValue);
         fragment.setArguments(args);
@@ -40,7 +38,7 @@ public class CategoryPageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRepository = ProductRepository.getInstance();
+        mViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         mCategoryValue = getArguments().getString(ARGS_CATEGORY_VALUE);
     }
 
@@ -50,7 +48,7 @@ public class CategoryPageFragment extends Fragment {
 
         mBinding = DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_category_page,
+                R.layout.fragment_product_category,
                 container,
                 false);
 
@@ -67,7 +65,7 @@ public class CategoryPageFragment extends Fragment {
     private void setupAdapter() {
         CategoryPageAdapter adapter = new CategoryPageAdapter(
                 getContext(),
-                mRepository.getProductListByCategory(mCategoryValue));
+                mViewModel.getProductsByCategory(mCategoryValue));
 
         mBinding.recyclerViewCategoryPage.setAdapter(adapter);
     }

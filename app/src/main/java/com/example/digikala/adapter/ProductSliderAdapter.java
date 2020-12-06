@@ -22,7 +22,7 @@ public class ProductSliderAdapter extends SliderViewAdapter<ProductSliderAdapter
     private List<String> mListProductImageUrl;
 
     public ProductSliderAdapter(Context context, List<String> listProductImageUrl) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mListProductImageUrl = listProductImageUrl;
     }
 
@@ -61,10 +61,11 @@ public class ProductSliderAdapter extends SliderViewAdapter<ProductSliderAdapter
         public ProductSliderViewHolder(
                 ProductImageSliderItemDetailBinding productImageSliderItemDetailBinding) {
             super(productImageSliderItemDetailBinding.getRoot());
+            mProductImageSliderItemDetailBinding = productImageSliderItemDetailBinding;
         }
 
         public void bindImage(String url) {
-            Picasso.get().load(url).into(mProductImageSliderItemDetailBinding.imgProduct);
+            mProductImageSliderItemDetailBinding.setUrl(url);
         }
     }
 }

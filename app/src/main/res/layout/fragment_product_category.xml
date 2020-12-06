@@ -10,7 +10,7 @@
         android:id="@+id/recycler_view_category_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".controller.fragment.CategoryPageFragment">
+        tools:context=".uicontroller.fragment.ProductCategoryFragment">
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

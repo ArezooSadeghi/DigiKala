@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="product"
+            type="com.example.digikala.model.Product" />
     </data>
 
     <FrameLayout
@@ -23,7 +25,8 @@
                     android:id="@+id/img_product"
                     android:layout_width="200dp"
                     android:layout_height="150dp"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    productImage="@{product.productImageUrl.get(0)}"/>
 
                 <TextView
                     android:id="@+id/txt_product_name"
@@ -35,7 +38,7 @@
                     android:fontFamily="@font/text"
                     android:lines="2"
                     android:textSize="18sp"
-                    tools:text="name" />
+                    android:text="@{product.productName}"/>
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>

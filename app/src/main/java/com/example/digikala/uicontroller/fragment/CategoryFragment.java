@@ -1,28 +1,27 @@
-package com.example.digikala.controller.fragment;
+package com.example.digikala.uicontroller.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digikala.R;
 import com.example.digikala.adapter.ProductCategoryAdapter;
-import com.example.digikala.controller.activity.CategoryPageActivity;
 import com.example.digikala.databinding.FragmentCategoryBinding;
-import com.example.digikala.repository.ProductRepository;
+import com.example.digikala.uicontroller.activity.ProductCategoryActivity;
+import com.example.digikala.viewmodel.ProductViewModel;
 
 public class CategoryFragment extends Fragment {
 
-    private ProductRepository mRepository;
     private FragmentCategoryBinding mBinding;
+    private ProductViewModel mViewModel;
 
     public CategoryFragment() {
     }
@@ -38,7 +37,7 @@ public class CategoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRepository = ProductRepository.getInstance();
+        mViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
     }
 
     @Override
@@ -93,32 +92,32 @@ public class CategoryFragment extends Fragment {
     private void setupAdapter() {
         ProductCategoryAdapter bagTowelAdapter = new ProductCategoryAdapter(
                 getContext(),
-                mRepository.getProductListByCategory(getString(R.string.bag_towel_category)));
+                mViewModel.getProductsByCategory(getString(R.string.bag_towel_category)));
         mBinding.recyclerViewBagTowelCategory.setAdapter(bagTowelAdapter);
 
         ProductCategoryAdapter healthAdapter = new ProductCategoryAdapter(
                 getContext(),
-                mRepository.getProductListByCategory(getString(R.string.health_category)));
+                mViewModel.getProductsByCategory(getString(R.string.health_category)));
         mBinding.recyclerViewHealthCategory.setAdapter(healthAdapter);
 
         ProductCategoryAdapter digitalAdapter = new ProductCategoryAdapter(
                 getContext(),
-                mRepository.getProductListByCategory(getString(R.string.digital_category)));
+                mViewModel.getProductsByCategory(getString(R.string.digital_category)));
         mBinding.recyclerViewDigitalCategory.setAdapter(digitalAdapter);
 
         ProductCategoryAdapter fashionClothingAdapter = new ProductCategoryAdapter(
                 getContext(),
-                mRepository.getProductListByCategory(getString(R.string.fashion_clothing_category)));
+                mViewModel.getProductsByCategory(getString(R.string.fashion_clothing_category)));
         mBinding.recyclerViewFashionClothingCategory.setAdapter(fashionClothingAdapter);
 
         ProductCategoryAdapter phoneAdapter = new ProductCategoryAdapter(
                 getContext(),
-                mRepository.getProductListByCategory(getString(R.string.phone_category)));
+                mViewModel.getProductsByCategory(getString(R.string.phone_category)));
         mBinding.recyclerViewPhoneCategory.setAdapter(phoneAdapter);
 
         ProductCategoryAdapter householdAdapter = new ProductCategoryAdapter(
                 getContext(),
-                mRepository.getProductListByCategory(getString(R.string.household_category)));
+                mViewModel.getProductsByCategory(getString(R.string.household_category)));
         mBinding.recyclerViewHouseholdCategory.setAdapter(householdAdapter);
     }
 
@@ -126,61 +125,50 @@ public class CategoryFragment extends Fragment {
         mBinding.txtBagTowelSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = CategoryPageActivity.newIntent(
-                        getContext(),
-                        mBinding.txtBagTowelCategory.getText().toString());
-                startActivity(intent);
+                sendIntent(mBinding.txtBagTowelCategory.getText().toString());
             }
         });
 
         mBinding.txtHealthSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = CategoryPageActivity.newIntent(
-                        getContext(),
-                        mBinding.txtHealthCategory.getText().toString());
-                startActivity(intent);
+                sendIntent(mBinding.txtHealthCategory.getText().toString());
             }
         });
 
         mBinding.txtDigitalSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = CategoryPageActivity.newIntent(
-                        getContext(),
-                        mBinding.txtDigitalCategory.getText().toString());
-                startActivity(intent);
+                sendIntent(mBinding.txtDigitalCategory.getText().toString());
             }
         });
 
         mBinding.txtFashionClothingSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = CategoryPageActivity.newIntent(
-                        getContext(),
-                        mBinding.txtFashionClothingCategory.getText().toString());
-                startActivity(intent);
+                sendIntent(mBinding.txtFashionClothingCategory.getText().toString());
             }
         });
 
         mBinding.txtPhoneSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = CategoryPageActivity.newIntent(
-                        getContext(),
-                        mBinding.txtPhoneCategory.getText().toString());
-                startActivity(intent);
+                sendIntent(mBinding.txtPhoneCategory.getText().toString());
             }
         });
 
         mBinding.txtHouseholdSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = CategoryPageActivity.newIntent(
-                        getContext(),
-                        mBinding.txtHouseholdCategory.getText().toString());
-                startActivity(intent);
+                sendIntent(mBinding.txtHouseholdCategory.getText().toString());
             }
         });
+    }
+
+    private void sendIntent(String text) {
+        Intent intent = ProductCategoryActivity.newIntent(
+                getContext(),
+                text);
+        startActivity(intent);
     }
 }

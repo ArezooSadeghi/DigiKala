@@ -1,28 +1,28 @@
-package com.example.digikala.controller.fragment;
+package com.example.digikala.uicontroller.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.digikala.R;
 import com.example.digikala.adapter.ProductSliderAdapter;
 import com.example.digikala.databinding.FragmentProductDetailBinding;
 import com.example.digikala.model.Product;
 import com.example.digikala.repository.ProductRepository;
-import com.smarteist.autoimageslider.SliderView;
+import com.example.digikala.viewmodel.ProductViewModel;
 
 public class ProductDetailFragment extends Fragment {
 
     private static final String ARGS_PRODUCT_ID = "productId";
 
-    private ProductRepository mRepository;
     private Product mProduct;
     private FragmentProductDetailBinding mBinding;
+    private ProductViewModel mViewModel;
 
     public ProductDetailFragment() {
     }
@@ -39,9 +39,9 @@ public class ProductDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRepository = ProductRepository.getInstance();
+        mViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         String productId = getArguments().getString(ARGS_PRODUCT_ID);
-        mProduct = mRepository.getProduct(productId);
+        mProduct = mViewModel.getProduct(productId);
     }
 
     @Override

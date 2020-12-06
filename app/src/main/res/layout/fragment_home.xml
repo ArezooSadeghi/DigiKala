@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".controller.fragment.HomeFragment">
+        tools:context=".uicontroller.fragment.HomeFragment">
 
         <ScrollView
             android:layout_width="match_parent"

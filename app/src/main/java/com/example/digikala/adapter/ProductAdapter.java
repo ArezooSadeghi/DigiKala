@@ -5,18 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digikala.R;
-import com.example.digikala.controller.activity.ProductDetailContainer;
+import com.example.digikala.uicontroller.activity.ProductDetailActivity;
 import com.example.digikala.databinding.ProductItemDetailBinding;
 import com.example.digikala.model.Product;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public ProductAdapter(List<Product> productList, Context context) {
         mProductList = productList;
-        mContext = context;
+        mContext = context.getApplicationContext();
     }
 
     public List<Product> getProductList() {
@@ -61,31 +58,36 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private Product mProduct;
         private ProductItemDetailBinding mProductItemDetailBinding;
 
         public ProductViewHolder(ProductItemDetailBinding productItemDetailBinding) {
             super(productItemDetailBinding.getRoot());
-            productItemDetailBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            mProductItemDetailBinding = productItemDetailBinding;
+
+
+
+            /*productItemDetailBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = ProductDetailContainer
-                            .newIntent(mContext, mProduct.getProductId());
+                    Intent intent = ProductDetailActivity
+                            .newIntent(
+                                    mContext,
+                                    mProductItemDetailBinding.getProduct().getProductId());
                     mContext.startActivity(intent);
                 }
-            });
+            });*/
         }
 
         public void bindProduct(Product product) {
-            mProduct = product;
-            mProductItemDetailBinding.txtProductName.setText(product.getProductName());
-            String text = R.string.currency + product.getProductPrice();
-            mProductItemDetailBinding
-                    .txtProductPrice
-                    .setText(product.getProductPrice() + " " + R.string.currency);
-            Picasso.get()
-                    .load(product.getProductImageUrl().get(0))
-                    .into(mProductItemDetailBinding.imgProduct);
+            mProductItemDetailBinding.setProduct(product);
+        }
+
+        public void sendIntent() {
+            Intent intent = ProductDetailActivity
+                    .newIntent(
+                            mContext,
+                            mProductItemDetailBinding.getProduct().getProductId());
+            mContext.startActivity(intent);
         }
     }
 }

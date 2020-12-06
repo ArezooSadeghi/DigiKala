@@ -2,10 +2,7 @@ package com.example.digikala.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -64,7 +61,6 @@ public class CategoryPageAdapter extends RecyclerView.Adapter<CategoryPageAdapte
         public CategoryPageViewHolder(CategoryPageItemDetailBinding categoryPageItemDetailBinding) {
             super(categoryPageItemDetailBinding.getRoot());
             mCategoryPageItemDetailBinding = categoryPageItemDetailBinding;
-
         }
 
         public void bindProduct(Product product) {

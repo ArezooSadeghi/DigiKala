@@ -1,4 +1,4 @@
-package com.example.digikala.controller.fragment;
+package com.example.digikala.uicontroller.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,14 +16,14 @@ import com.example.digikala.R;
 import com.example.digikala.adapter.ProductAdapter;
 import com.example.digikala.databinding.FragmentHomeBinding;
 import com.example.digikala.model.Product;
-import com.example.digikala.repository.ProductRepository;
+import com.example.digikala.viewmodel.ProductViewModel;
 
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private ProductRepository mRepository;
     private FragmentHomeBinding mBinding;
+    private ProductViewModel mViewModel;
 
     public HomeFragment() {
     }
@@ -38,14 +39,9 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRepository = ProductRepository.getInstance();
-        mRepository.fetchProductItemsAsync();
-        mRepository.getProductListLiveData().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> productList) {
-                setupAdapter(productList);
-            }
-        });
+        mViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        mViewModel.fetchProductItemsAsync();
+        setObserver();
     }
 
     @Override
@@ -62,6 +58,17 @@ public class HomeFragment extends Fragment {
 
         return mBinding.getRoot();
     }
+
+
+    private void setObserver() {
+        mViewModel.getProductsLiveData().observe(this, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> productList) {
+                setupAdapter(productList);
+            }
+        });
+    }
+
 
     private void initViews() {
         LinearLayoutManager bestProductLayoutManager = new LinearLayoutManager(getContext());

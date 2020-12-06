@@ -4,12 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="product"
+            type="com.example.digikala.model.Product" />
+        <variable
+            name="productViewHolder"
+            type="com.example.digikala.adapter.ProductAdapter.ProductViewHolder" />
 
     </data>
 
     <FrameLayout
         android:layout_width="300dp"
-        android:layout_height="510dp">
+        android:layout_height="510dp"
+        android:onClick="@{() -> productViewHolder.sendIntent()}">
 
         <androidx.cardview.widget.CardView
             android:layout_width="270dp"
@@ -29,7 +36,8 @@
                     android:layout_width="150dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="40dp" />
+                    android:layout_marginTop="40dp"
+                    productImage="@{product.productImageUrl.get(0)}"/>
 
                 <TextView
                     android:id="@+id/txt_product_name"
@@ -44,7 +52,7 @@
                     android:lines="3"
                     android:singleLine="false"
                     android:textSize="18sp"
-                    tools:text="name" />
+                    android:text="@{product.productName}" />
 
                 <TextView
                     android:id="@+id/txt_product_price"
@@ -54,7 +62,7 @@
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/title"
                     android:textSize="20sp"
-                    tools:text="price" />
+                    android:text="@{product.productPrice.concat(@string/currency)}" />
 
             </LinearLayout>
 

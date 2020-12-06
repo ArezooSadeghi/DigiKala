@@ -1,5 +1,11 @@
 package com.example.digikala.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 import java.util.Map;
 
@@ -84,5 +90,10 @@ public class Product {
 
     public void setProductId(String productId) {
         mProductId = productId;
+    }
+
+    @BindingAdapter("productImage")
+    public static void loadImage(ImageView view, String url) {
+        Picasso.get().load(url).into(view);
     }
 }
