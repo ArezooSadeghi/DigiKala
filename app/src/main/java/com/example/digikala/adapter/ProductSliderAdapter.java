@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.digikala.R;
+import com.example.digikala.databinding.ProductImageSliderItemDetailBinding;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -34,11 +36,12 @@ public class ProductSliderAdapter extends SliderViewAdapter<ProductSliderAdapter
 
     @Override
     public ProductSliderViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(mContext).inflate(
+        ProductImageSliderItemDetailBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(mContext),
                 R.layout.product_image_slider_item_detail,
                 parent,
                 false);
-        return new ProductSliderViewHolder(view);
+        return new ProductSliderViewHolder(binding);
     }
 
     @Override
@@ -53,15 +56,15 @@ public class ProductSliderAdapter extends SliderViewAdapter<ProductSliderAdapter
 
     public class ProductSliderViewHolder extends SliderViewAdapter.ViewHolder {
 
-        private ImageView mImageViewProduct;
+        private ProductImageSliderItemDetailBinding mProductImageSliderItemDetailBinding;
 
-        public ProductSliderViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mImageViewProduct = itemView.findViewById(R.id.img_product);
+        public ProductSliderViewHolder(
+                ProductImageSliderItemDetailBinding productImageSliderItemDetailBinding) {
+            super(productImageSliderItemDetailBinding.getRoot());
         }
 
         public void bindImage(String url) {
-            Picasso.get().load(url).into(mImageViewProduct);
+            Picasso.get().load(url).into(mProductImageSliderItemDetailBinding.imgProduct);
         }
     }
 }

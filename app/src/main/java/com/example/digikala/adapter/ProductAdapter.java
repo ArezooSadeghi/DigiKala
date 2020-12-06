@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digikala.R;
 import com.example.digikala.controller.activity.ProductDetailContainer;
+import com.example.digikala.databinding.ProductItemDetailBinding;
 import com.example.digikala.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -39,10 +41,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater
-                .from(mContext)
-                .inflate(R.layout.product_item_detail, parent, false);
-        return new ProductViewHolder(view);
+        ProductItemDetailBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(mContext),
+                R.layout.product_item_detail,
+                parent,
+                false);
+        return new ProductViewHolder(binding);
     }
 
     @Override
@@ -58,15 +62,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private Product mProduct;
-        private TextView mProductName, mProductPrice;
-        private ImageView mProductImage;
+        private ProductItemDetailBinding mProductItemDetailBinding;
 
-        public ProductViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mProductName = itemView.findViewById(R.id.txt_product_name);
-            mProductPrice = itemView.findViewById(R.id.txt_product_price);
-            mProductImage = itemView.findViewById(R.id.img_product);
-            itemView.setOnClickListener(new View.OnClickListener() {
+        public ProductViewHolder(ProductItemDetailBinding productItemDetailBinding) {
+            super(productItemDetailBinding.getRoot());
+            productItemDetailBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = ProductDetailContainer
@@ -78,11 +78,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         public void bindProduct(Product product) {
             mProduct = product;
-            mProductName.setText(product.getProductName());
+            mProductItemDetailBinding.txtProductName.setText(product.getProductName());
             String text = R.string.currency + product.getProductPrice();
-            mProductPrice.setText(product.getProductPrice() + "  " + mContext.getResources()
-                    .getString(R.string.currency));
-            Picasso.get().load(product.getProductImageUrl().get(0)).into(mProductImage);
+            mProductItemDetailBinding
+                    .txtProductPrice
+                    .setText(product.getProductPrice() + " " + R.string.currency);
+            Picasso.get()
+                    .load(product.getProductImageUrl().get(0))
+                    .into(mProductItemDetailBinding.imgProduct);
         }
     }
 }

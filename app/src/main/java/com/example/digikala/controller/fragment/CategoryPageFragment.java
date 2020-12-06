@@ -2,6 +2,7 @@ package com.example.digikala.controller.fragment;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,15 +14,16 @@ import android.view.ViewGroup;
 
 import com.example.digikala.R;
 import com.example.digikala.adapter.CategoryPageAdapter;
+import com.example.digikala.databinding.FragmentCategoryPageBinding;
 import com.example.digikala.repository.ProductRepository;
 
 public class CategoryPageFragment extends Fragment {
 
     public static final String ARGS_CATEGORY_VALUE = "categoryValue";
 
-    private RecyclerView mRecyclerViewCategoryPage;
     private String mCategoryValue;
     private ProductRepository mRepository;
+    private FragmentCategoryPageBinding mBinding;
 
     public CategoryPageFragment() {
     }
@@ -46,21 +48,20 @@ public class CategoryPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_category_page, container, false);
+        mBinding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_category_page,
+                container,
+                false);
 
-        findViews(view);
         initViews();
         setupAdapter();
 
-        return view;
-    }
-
-    private void findViews(View view) {
-        mRecyclerViewCategoryPage = view.findViewById(R.id.recycler_view_category_page);
+        return mBinding.getRoot();
     }
 
     private void initViews() {
-        mRecyclerViewCategoryPage.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.recyclerViewCategoryPage.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void setupAdapter() {
@@ -68,6 +69,6 @@ public class CategoryPageFragment extends Fragment {
                 getContext(),
                 mRepository.getProductListByCategory(mCategoryValue));
 
-        mRecyclerViewCategoryPage.setAdapter(adapter);
+        mBinding.recyclerViewCategoryPage.setAdapter(adapter);
     }
 }

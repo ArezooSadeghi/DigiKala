@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.digikala.R;
 import com.example.digikala.adapter.ProductSliderAdapter;
+import com.example.digikala.databinding.FragmentProductDetailBinding;
 import com.example.digikala.model.Product;
 import com.example.digikala.repository.ProductRepository;
 import com.smarteist.autoimageslider.SliderView;
@@ -18,10 +20,9 @@ public class ProductDetailFragment extends Fragment {
 
     private static final String ARGS_PRODUCT_ID = "productId";
 
-    private TextView mProductDescription;
-    private SliderView mProductImageGallery;
     private ProductRepository mRepository;
     private Product mProduct;
+    private FragmentProductDetailBinding mBinding;
 
     public ProductDetailFragment() {
     }
@@ -47,26 +48,22 @@ public class ProductDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(
+        mBinding = DataBindingUtil.inflate(
+                inflater,
                 R.layout.fragment_product_detail,
                 container,
                 false);
 
-        findViews(view);
         initViews(mProduct);
 
-        return view;
-    }
-
-    private void findViews(View view) {
-        mProductImageGallery = view.findViewById(R.id.img_product_slider);
-        mProductDescription = view.findViewById(R.id.txt_product_description);
+        return mBinding.getRoot();
     }
 
     private void initViews(Product product) {
-        mProductDescription.setText(product.getProductDescription());
-        ProductSliderAdapter adapter = new ProductSliderAdapter(getContext(), product.getProductImageUrl());
-        mProductImageGallery.setSliderAdapter(adapter);
+        mBinding.txtProductDescription.setText(product.getProductDescription());
+        ProductSliderAdapter adapter = new ProductSliderAdapter(
+                getContext(),
+                product.getProductImageUrl());
+        mBinding.imgProductSlider.setSliderAdapter(adapter);
     }
-
 }

@@ -5,11 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.digikala.R;
+import com.example.digikala.databinding.FragmentCartBinding;
 
 public class CartFragment extends Fragment {
+
+    private FragmentCartBinding mBinding;
 
     public CartFragment() {
     }
@@ -30,7 +34,11 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        return view;
+        mBinding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_cart,
+                container,
+                false);
+        return mBinding.getRoot();
     }
 }

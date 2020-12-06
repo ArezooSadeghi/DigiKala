@@ -7,25 +7,28 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.digikala.R;
 import com.example.digikala.controller.fragment.CartFragment;
 import com.example.digikala.controller.fragment.CategoryFragment;
 import com.example.digikala.controller.fragment.HomeFragment;
 import com.example.digikala.controller.fragment.PersonFragment;
+import com.example.digikala.databinding.ActivityBottomNavigationBarBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationBarActivity extends AppCompatActivity {
 
-    private BottomNavigationView mBottomNavigationView;
+    private ActivityBottomNavigationBarBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navigation_bar);
+        mBinding = DataBindingUtil.setContentView(
+                this,
+                R.layout.activity_bottom_navigation_bar);
 
-        findViews();
-        mBottomNavigationView.setOnNavigationItemSelectedListener(
+        mBinding.bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -45,10 +48,6 @@ public class BottomNavigationBarActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    private void findViews() {
-        mBottomNavigationView = findViewById(R.id.bottom_navigation_view);
     }
 
     private void displayFragment(int itemId) {

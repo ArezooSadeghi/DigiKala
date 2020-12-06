@@ -5,20 +5,26 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.digikala.R;
 import com.example.digikala.controller.fragment.ProductDetailFragment;
+import com.example.digikala.databinding.ActivityDetailProductContainerBinding;
 
 public class ProductDetailContainer extends AppCompatActivity {
 
     public static final String EXTRA_PRODUCT_ID = "com.example.digikala.productId";
 
+    private ActivityDetailProductContainerBinding mBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_product_container);
+        mBinding = DataBindingUtil.setContentView(
+                this,
+                R.layout.activity_detail_product_container);
 
         Intent intent = getIntent();
         String productId = intent.getStringExtra(EXTRA_PRODUCT_ID);

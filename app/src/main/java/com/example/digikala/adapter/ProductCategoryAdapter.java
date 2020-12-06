@@ -8,9 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digikala.R;
+import com.example.digikala.databinding.ProductCategoryItemDetailBinding;
+import com.example.digikala.databinding.ProductItemDetailBinding;
 import com.example.digikala.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -37,10 +40,12 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     @NonNull
     @Override
     public ProductCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater
-                .from(mContext)
-                .inflate(R.layout.product_category_item_detail, parent, false);
-        return new ProductCategoryViewHolder(view);
+        ProductCategoryItemDetailBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(mContext),
+                R.layout.product_category_item_detail,
+                parent,
+                false);
+        return new ProductCategoryViewHolder(binding);
     }
 
     @Override
@@ -55,18 +60,17 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
 
     public class ProductCategoryViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTextViewNumberOfProduct, mTextViewProductName;
-        private ImageView mProductImage;
+        private ProductCategoryItemDetailBinding mProductCategoryItemDetailBinding;
 
-        public ProductCategoryViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mTextViewProductName = itemView.findViewById(R.id.txt_product_name);
-            mTextViewNumberOfProduct = itemView.findViewById(R.id.txt_number_of_product);
-            mProductImage = itemView.findViewById(R.id.img_product);
+        public ProductCategoryViewHolder(
+                ProductCategoryItemDetailBinding productCategoryItemDetailBinding) {
+            super(productCategoryItemDetailBinding.getRoot());
         }
 
         private void bindCategoryName(Product product) {
-            Picasso.get().load(product.getProductImageUrl().get(0)).into(mProductImage);
+            Picasso.get()
+                    .load(product.getProductImageUrl().get(0))
+                    .into(mProductCategoryItemDetailBinding.imgProduct);
         }
     }
 }

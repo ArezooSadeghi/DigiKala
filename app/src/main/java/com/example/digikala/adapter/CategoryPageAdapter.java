@@ -8,9 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digikala.R;
+import com.example.digikala.databinding.CategoryPageItemDetailBinding;
 import com.example.digikala.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -37,11 +39,12 @@ public class CategoryPageAdapter extends RecyclerView.Adapter<CategoryPageAdapte
     @NonNull
     @Override
     public CategoryPageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(
+        CategoryPageItemDetailBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(mContext),
                 R.layout.category_page_item_detail,
                 parent,
                 false);
-        return new CategoryPageViewHolder(view);
+        return new CategoryPageViewHolder(binding);
     }
 
     @Override
@@ -56,18 +59,19 @@ public class CategoryPageAdapter extends RecyclerView.Adapter<CategoryPageAdapte
 
     public class CategoryPageViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mImageViewProduct;
-        private TextView mTextViewProductName;
+        private CategoryPageItemDetailBinding mCategoryPageItemDetailBinding;
 
-        public CategoryPageViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mImageViewProduct = itemView.findViewById(R.id.img_product);
-            mTextViewProductName = itemView.findViewById(R.id.txt_product_name);
+        public CategoryPageViewHolder(CategoryPageItemDetailBinding categoryPageItemDetailBinding) {
+            super(categoryPageItemDetailBinding.getRoot());
+            mCategoryPageItemDetailBinding = categoryPageItemDetailBinding;
+
         }
 
         public void bindProduct(Product product) {
-            mTextViewProductName.setText(product.getProductName());
-            Picasso.get().load(product.getProductImageUrl().get(0)).into(mImageViewProduct);
+            mCategoryPageItemDetailBinding.txtProductName.setText(product.getProductName());
+            Picasso.get()
+                    .load(product.getProductImageUrl().get(0))
+                    .into(mCategoryPageItemDetailBinding.imgProduct);
         }
     }
 }
